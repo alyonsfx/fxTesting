@@ -1,0 +1,177 @@
+fileFormatVersion: 2
+guid: 4be88107a7e634858bf17e8a6a5a76b1
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Base
+    100002: BG
+    100004: directionalLight1
+    100006: Flags
+    100008: Generator
+    100010: Ground
+    100012: Inlays
+    100014: Orb
+    100016: pointLight1
+    100018: pointLight2
+    100020: pointLight3
+    100022: pointLight4
+    100024: pointLight5
+    100026: pointLight6
+    100028: pointLight7
+    100030: pointLight8
+    100032: Pyre
+    100034: Rubble
+    100036: Scale
+    100038: Sphere
+    100040: Stadium
+    100042: //RootNode
+    400000: Base
+    400002: BG
+    400004: directionalLight1
+    400006: Flags
+    400008: Generator
+    400010: Ground
+    400012: Inlays
+    400014: Orb
+    400016: pointLight1
+    400018: pointLight2
+    400020: pointLight3
+    400022: pointLight4
+    400024: pointLight5
+    400026: pointLight6
+    400028: pointLight7
+    400030: pointLight8
+    400032: Pyre
+    400034: Rubble
+    400036: Scale
+    400038: Sphere
+    400040: Stadium
+    400042: //RootNode
+    2300000: Base
+    2300002: BG
+    2300004: Flags
+    2300006: Generator
+    2300008: Ground
+    2300010: Inlays
+    2300012: Orb
+    2300014: Pyre
+    2300016: Rubble
+    2300018: Scale
+    2300020: Sphere
+    2300022: Stadium
+    3300000: Base
+    3300002: BG
+    3300004: Flags
+    3300006: Generator
+    3300008: Ground
+    3300010: Inlays
+    3300012: Orb
+    3300014: Pyre
+    3300016: Rubble
+    3300018: Scale
+    3300020: Sphere
+    3300022: Stadium
+    4300000: Scale
+    4300002: Ground
+    4300004: BG
+    4300006: Orb
+    4300008: Flags
+    4300010: Base
+    4300012: Generator
+    4300014: Inlays
+    4300016: Stadium
+    4300018: Rubble
+    4300020: Sphere
+    4300022: Pyre
+    9500000: //RootNode
+    10800000: directionalLight1
+    10800002: pointLight1
+    10800004: pointLight2
+    10800006: pointLight3
+    10800008: pointLight4
+    10800010: pointLight5
+    10800012: pointLight6
+    10800014: pointLight7
+    10800016: pointLight8
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 0
+    importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
