@@ -1,9 +1,11 @@
 ﻿Shader "Test/Here we go"
 {
     Properties {
-        _Color ("Base Color", Color) = (0.5,0.5,0.5,1)
+        _Color("Base Color", Color) = (0.5,0.5,0.5,1)
         _MainTex("Base texture", 2D) = "white" {}
         _BumpMap("Normal Map", 2D) = "bump" {}
+        _Spec("Specular", float) = 1
+        _Gloss("Gloss", float) = 1
     }
     SubShader
     {
@@ -20,14 +22,15 @@
 
             sampler2D _MainTex, _BumpMap;
             half4 _Color;
+            half _Spec, _Gloss;
 
             struct appdata
-			{
-				float4 vertex : POSITION;
+         {
+             float4 vertex : POSITION;
                 float3 normal : NORMAL;
                 float4 tangent : TANGENT;
                 float2 uv : TEXCOORD0;
-			};
+         };
 
             struct v2f
             {
@@ -117,7 +120,7 @@
                 // fixed spec = pow (nh, s.Specular*128) * s.Gloss;
 
 
-
+                half4 mainTex = tex2D(_MainTex, i.uv);
 
                 // Bad Normal mapped reflection
                 // modulate sky color with the base texture, and the occlusion map
@@ -141,9 +144,12 @@
 
                 half nl = max(0, dot(worldRefl, _WorldSpaceLightPos0.xyz));
                 half3 diffuse = nl * _LightColor0.rgb;
-                half3 lighting = diffuse + ShadeSH9(half4(worldRefl,1));
+                half3 lighting = ShadeSH9(half4(worldRefl,1));
+                //half3 spec = pow(spec, mainTex.a) * _Gloss;
 
-                return half4(lighting,1);
+                lighting = mainTex.rgb * diffuse;// * lighting;// + spec * lighting;
+
+                return half4(lighting* 2,1);
             }
             ENDCG
         }

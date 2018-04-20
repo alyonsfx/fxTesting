@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/minGameEnvironment.unity
+- path: Assets/Scenes/TEST_Char.unity
   isLoaded: 1
   isActive: 1
