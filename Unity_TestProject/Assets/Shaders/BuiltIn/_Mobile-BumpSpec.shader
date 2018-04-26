@@ -8,12 +8,12 @@
 // - no Lightmap support
 // - fully supports only 1 directional light. Other lights can affect it, but it will be per-vertex/SH.
 
-Shader "Mobile/Bumped Specular"
+Shader "Char/Unity Mobile Bumped Specular"
 {
     Properties
     {
+        [NoScaleOffset] _MainTex ("Base (RGB) Gloss (A)", 2D) = "white" {}
         _Shininess ("Shininess", Range (0.03, 1)) = 0.078125
-        _MainTex ("Base (RGB) Gloss (A)", 2D) = "white" {}
         [NoScaleOffset] _BumpMap ("Normalmap", 2D) = "bump" {}
     }
     SubShader
@@ -22,16 +22,18 @@ Shader "Mobile/Bumped Specular"
         LOD 250
 
         CGPROGRAM
+        #include "Lighting.cginc"
         #pragma surface surf MobileBlinnPhong exclude_path:prepass nolightmap noforwardadd halfasview interpolateview
 
-        inline fixed4 LightingMobileBlinnPhong (SurfaceOutput s, fixed3 lightDir, fixed3 halfDir, fixed atten)
+        inline half4 LightingMobileBlinnPhong (SurfaceOutput s, half3 lightDir, half3 halfDir, half atten)
         {
-            fixed diff = max (0, dot (s.Normal, lightDir));
-            fixed nh = max (0, dot (s.Normal, halfDir));
-            fixed spec = pow (nh, s.Specular*128) * s.Gloss;
-
+            half diff = max (0, dot (s.Normal, lightDir));
+            half nh = max (0, dot (s.Normal, halfDir));
+            half spec = pow (nh, s.Specular*128) * s.Gloss;
+            half3 diffuse = _LightColor0.rgb * diff * s.Albedo;
+            half3 specular = _LightColor0.rgb * spec;
             fixed4 c;
-            c.rgb = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * spec) * atten;
+            c.rgb = (diffuse + specular) * atten;
             UNITY_OPAQUE_ALPHA(c.a);
             return c;
         }
@@ -42,19 +44,19 @@ Shader "Mobile/Bumped Specular"
 
         struct Input
         {
-            float2 uv_MainTex;
+            half2 uv_MainTex;
         };
 
         void surf (Input IN, inout SurfaceOutput o)
         {
-            fixed4 tex = tex2D(_MainTex, IN.uv_MainTex);
+            half4 tex = tex2D(_MainTex, IN.uv_MainTex);
             o.Albedo = tex.rgb;
             o.Gloss = tex.a;
-            o.Alpha = tex.a;
+            o.Alpha = 1;
             o.Specular = _Shininess;
             o.Normal = UnpackNormal (tex2D(_BumpMap, IN.uv_MainTex));
         }
         ENDCG
+        UsePass "Hidden/Shadows/SHADE"
     }
-    FallBack "Mobile/VertexLit"
 }

@@ -2,10 +2,8 @@ Shader "Character/Vertex Simple"
 {
     Properties
     {
-        [NoScaleOffset] _MainTex ("Texture", 2D) = "white" {}
-        _SpecPower ("Specular Intensity", float) = 1
-		_SpecRoll ("Specular Rolloff", float) = 2.0
-        _GlowIntensity ("Glow Intensity", Range(0.0, 1.0)) = 1
+        [NoScaleOffset] _MainTex ("Base (RGB) Gloss (A)", 2D) = "white" {}
+		_Shininess ("Shininess", Range (0.03, 1)) = 0.078125
     }
     SubShader
     {
@@ -18,15 +16,11 @@ Shader "Character/Vertex Simple"
             #pragma fragment frag
             #include "UnityCG.cginc"
             #include "Lighting.cginc"
-
-            // compile shader into multiple variants, with and without shadows
-            // (we don't care about any lightmaps yet, so skip these variants)
-            #pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap
-            // shadow helper functions and macros
+            #pragma multi_compile_fwdbase nolightmap nodirlightmap nodynlightmap noforwardadd
             #include "AutoLight.cginc"
 
             sampler2D _MainTex;
-            half _SpecPower, _SpecRoll, _GlowIntensity;
+            half  _Shininess;
 
             struct appdata
             {
@@ -40,9 +34,9 @@ Shader "Character/Vertex Simple"
                 float4 pos : SV_POSITION;
                 half2 uv : TEXCOORD0;
                 SHADOW_COORDS(1) // put shadows data into TEXCOORD1
-                half3 diff : COLOR0;
-                half3 amb : COLOR1;
-                half3 spec : COLOR2;
+                half diff : TEXCOORD2;
+                half spec : TEXCOORD3;
+                half3 amb : COLOR0;
             };
 
             v2f vert (appdata v)
@@ -50,39 +44,31 @@ Shader "Character/Vertex Simple"
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.uv = v.texcoord0;
-                // get vertex normal in world space
+                half3 lightDir = _WorldSpaceLightPos0.xyz;
                 half3 worldNormal = UnityObjectToWorldNormal(v.normal);
-                // dot product between normal and light direction for
-                // standard diffuse (Lambert) lighting
-                half nl = max(0, dot(worldNormal, _WorldSpaceLightPos0.xyz));
-                // factor in the light color
-                o.diff = nl * _LightColor0;
-                // Light probe info
+                half3 worldPos = mul(unity_ObjectToWorld, v.vertex);
+                half3 viewDir = normalize(_WorldSpaceCameraPos - worldPos);
+
+                o.diff = max(0, dot(worldNormal, lightDir));
+                half3 halfVector = normalize(lightDir + viewDir);
+                half nh = max (0, dot (worldNormal, halfVector));
+                o.spec = pow (nh, _Shininess*128.0);
                 o.amb = ShadeSH9(half4(worldNormal,1));
                 TRANSFER_SHADOW(o);
-
-                fixed3 worldV = normalize(-WorldSpaceViewDir(v.vertex));
-                fixed3 refl = reflect(worldV, worldNormal);
-                fixed3 worldLightDir = _WorldSpaceLightPos0;
-                //spec = dot(worldLightDir, refl);
-                fixed3 um = saturate(dot(worldLightDir, refl));
-
-                o.spec = pow(um, _SpecRoll);
-
                 return o;
             }
 
             half4 frag (v2f i) : SV_Target
             {
-                //c.rgb = (s.Albedo * _LightColor0.rgb * diff + _LightColor0.rgb * spec) * atten;
-                half shadow = SHADOW_ATTENUATION(i);
                 half4 tex = tex2D(_MainTex, i.uv);
-                half3 lighting = (i.diff + i.diff * i.spec * tex.a) *  shadow + i.amb;
-                half3 col = tex * lighting;
-                //Glow
-                //col = lerp(col,tex,tex.a * _GlowIntensity);
-                //UNITY_OPAQUE_ALPHA(col.a);
-                return half4(col,1);
+
+                half3 lightColor = _LightColor0.rgb;
+                half3 diffuse = tex.rgb * i.diff * lightColor;
+                half3 specular = i.spec * tex.a * lightColor;
+                half shadow = SHADOW_ATTENUATION(i);
+                
+                half3 col = (diffuse + specular) * shadow + i.amb * tex.rgb;
+                return half4(col, 1);
             }
             ENDCG
         }
