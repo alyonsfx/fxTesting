@@ -58,15 +58,13 @@ Shader "Character/Frag Bump"
 
             half4 frag (v2f i) : SV_Target
             {
-                half4 albedo = tex2D(_MainTex, i.uv);
-
-                half3 bump = UnpackScaleNormal(tex2D(_BumpMap, i.uv), _BumpScale);
-                bump = normalize(bump.x * i.tangent + bump.y * i.binormal + bump.z * i.normal);
-                //i.worldPos = bump;
-                //i.worldNorm = normalize(i.worldNorm);
                 half3 lightDir = _WorldSpaceLightPos0.xyz;
                 half3 lightColor = _LightColor0.rgb;
                 half3 viewDir = normalize(_WorldSpaceCameraPos - i.worldPos);
+
+                half4 albedo = tex2D(_MainTex, i.uv);
+                half3 bump = UnpackScaleNormal(tex2D(_BumpMap, i.uv), _BumpScale);
+                bump = normalize(bump.x * i.tangent + bump.y * i.binormal + bump.z * i.normal);
 
                 half diff = max (0, dot (bump, lightDir));
                 half3 halfVector = normalize(lightDir + viewDir);
@@ -74,9 +72,9 @@ Shader "Character/Frag Bump"
                 half spec = pow (nh, _Shininess*128.0) * albedo.a;
                 half3 amb = ShadeSH9(half4(bump,1)) * albedo.rgb;
                 half shadow = SHADOW_ATTENUATION(i);
+
                 half3 diffuse = lightColor * diff * albedo.rgb;
                 half3 specular = lightColor * spec;
-
 
                 half3 col = (diffuse + specular) * shadow + amb;
 				return float4(col, 1);

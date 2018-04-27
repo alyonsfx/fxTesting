@@ -33,9 +33,9 @@ Shader "Character/Frag Simple"
             {
                 float4 pos : SV_POSITION;
                 half2 uv : TEXCOORD0;
-                SHADOW_COORDS(1) // put shadows data into TEXCOORD1
-                half3 worldNorm : TEXCOORD2;
-                half3 worldPos : TEXCOORD3;
+                half3 normal : TEXCOORD1;
+                half3 worldPos : TEXCOORD2;
+                SHADOW_COORDS(3)
             };
 
             v2f vert (appdata v)
@@ -43,7 +43,7 @@ Shader "Character/Frag Simple"
                 v2f o;
                 o.uv = v.texcoord0;
 				o.pos = UnityObjectToClipPos(v.vertex);
-				o.worldNorm = UnityObjectToWorldNormal(v.normal);
+				o.normal = UnityObjectToWorldNormal(v.normal);
                 o.worldPos = mul(unity_ObjectToWorld, v.vertex);
                 TRANSFER_SHADOW(o);
                 return o;
@@ -53,20 +53,20 @@ Shader "Character/Frag Simple"
             {
                 half4 albedo = tex2D(_MainTex, i.uv);
 
-                i.worldNorm = normalize(i.worldNorm);
+                half3 norm = normalize(i.normal);
                 half3 lightDir = _WorldSpaceLightPos0.xyz;
                 half3 lightColor = _LightColor0.rgb;
                 half3 viewDir = normalize(_WorldSpaceCameraPos - i.worldPos);
 
-                half diff = max (0, dot (i.worldNorm, lightDir));
+                half diff = max (0, dot (norm, lightDir));
                 half3 halfVector = normalize(lightDir + viewDir);
-                half nh = max (0, dot (i.worldNorm, halfVector));
+                half nh = max (0, dot (norm, halfVector));
                 half spec = pow (nh, _Shininess*128.0) * albedo.a;
-                half3 amb = ShadeSH9(half4(i.worldNorm,1)) * albedo.rgb;
+                half3 amb = ShadeSH9(half4(norm,1)) * albedo.rgb;
                 half shadow = SHADOW_ATTENUATION(i);
+                
                 half3 diffuse = lightColor * diff * albedo.rgb;
                 half3 specular = lightColor * spec;
-
 
                 half3 col = (diffuse + specular) * shadow + amb;
 				return float4(col, 1);
