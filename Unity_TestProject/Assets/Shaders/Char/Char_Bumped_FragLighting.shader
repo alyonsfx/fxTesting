@@ -80,9 +80,10 @@ Shader "Character/Frag Bump"
 
                 half3 col = (diffuse + specular) * shadow + amb;
 				return float4(col, 1);
-            }
-            ENDCG
-        }
-        UsePass "Hidden/Shadows/SHADE"
-    }
+			}
+			ENDCG
+			
+		}
+		UsePass "Hidden/Shadows/SHADE"
+	}
 }
