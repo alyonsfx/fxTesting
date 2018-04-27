@@ -15,6 +15,7 @@ Shader "Char/Unity Mobile Bumped Specular"
         [NoScaleOffset] _MainTex ("Base (RGB) Gloss (A)", 2D) = "white" {}
         _Shininess ("Shininess", Range (0.03, 1)) = 0.078125
         [NoScaleOffset] _BumpMap ("Normalmap", 2D) = "bump" {}
+        _BumpScale ("Bump Scale", Range (0, 1)) = 1
     }
     SubShader
     {
@@ -38,9 +39,8 @@ Shader "Char/Unity Mobile Bumped Specular"
             return c;
         }
 
-        sampler2D _MainTex;
-        sampler2D _BumpMap;
-        half _Shininess;
+        sampler2D _MainTex, _BumpMap;
+        half _Shininess, _BumpScale;
 
         struct Input
         {
@@ -54,7 +54,7 @@ Shader "Char/Unity Mobile Bumped Specular"
             o.Gloss = tex.a;
             o.Alpha = 1;
             o.Specular = _Shininess;
-            o.Normal = UnpackNormal (tex2D(_BumpMap, IN.uv_MainTex));
+            o.Normal = UnpackScaleNormal (tex2D(_BumpMap, IN.uv_MainTex), _BumpScale);
         }
         ENDCG
         UsePass "Hidden/Shadows/SHADE"
