@@ -3,16 +3,6 @@
 	
 	//#include "Lighting.cginc"
 	
-	void mylighting(half3 normal, half3 lightDir, half3 worldPos, half shine, inout half diff, inout half spec)
-	{
-		half3 viewDir = normalize(_WorldSpaceCameraPos - worldPos);
-		
-		diff = max(0, dot(normal, lightDir));
-		half3 halfVector = normalize(lightDir + viewDir);
-		half nh = max(0, dot(normal, halfVector));
-		spec = pow(nh, shine * 128.0);
-	}
-	
 	struct SurfaceOutputCustom
 	{
 		half3 Albedo;
@@ -35,6 +25,15 @@
 		c.rgb = (diffuse + specular) * atten * s.Occlusion;
 		UNITY_OPAQUE_ALPHA(c.a);
 		return c;
+	}
+
+	void mylighting(half3 normal, half3 lightDir, half3 worldPos, half shine, inout half diff, inout half spec)
+	{
+		half3 viewDir = normalize(_WorldSpaceCameraPos - worldPos);
+		diff = max(0, dot(normal, lightDir));
+		half3 halfVector = normalize(lightDir + viewDir);
+		half nh = max(0, dot(normal, halfVector));
+		spec = pow(nh, shine * 128.0);
 	}
 	
 #endif
