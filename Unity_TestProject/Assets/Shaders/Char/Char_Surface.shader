@@ -2,11 +2,10 @@ Shader "Character/Surface"
 {
 	Properties
 	{
-		_MainTex ("Base (RGB) Glow (A)", 2D) = "white" { }
-		_GlowColor ("Glow Color (RGB) Intensity (A)", Color) = (1, 1, 1, 0)
-		[NoScaleOffset] _BumpMap ("Normalmap", 2D) = "bump" { }
-		_SpecTex ("Spec (RGB) Occ (A)", 2D) = "white" { }
-		_Shininess ("Shininess", Range(0.03, 1)) = 0.078125
+        [NoScaleOffset] _MainTex ("Base (RGB) Gloss (A)", 2D) = "white" {}
+        _Shininess ("Shininess", Range (0.03, 1)) = 0.078125
+        [NoScaleOffset] _BumpMap ("Normalmap", 2D) = "bump" {}
+        _BumpScale ("Bump Scale", Range (0, 1)) = 1
 	}
 	SubShader
 	{
@@ -18,8 +17,8 @@ Shader "Character/Surface"
 		#include "../CustomLighting.cginc"
 		#pragma surface surf Custom exclude_path:deferred exclude_path:prepass nolightmap noforwardadd halfasview interpolateview addshadow
 		
-		sampler2D _MainTex, _SpecTex, _BumpMap;
-		half _Shininess;
+		sampler2D _MainTex, _BumpMap;
+		half _Shininess, _BumpScale;
 		half4 _GlowColor;
 		
 		struct Input
@@ -30,14 +29,13 @@ Shader "Character/Surface"
 		void surf(Input IN, inout SurfaceOutputCustom o)
 		{
 			half4 tex = tex2D(_MainTex, IN.uv_MainTex);
-			half4 spec = tex2D(_SpecTex, IN.uv_MainTex);
 			o.Albedo = tex.rgb;
-			o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_MainTex));
-			o.Emission = _GlowColor.rgb * _GlowColor.a * tex.a;
+			o.Normal = UnpackScaleNormal (tex2D(_BumpMap, IN.uv_MainTex), _BumpScale);
+			o.Emission = 0;
 			o.Specular = _Shininess;
-			o.Gloss = spec.rgb;
+			o.Gloss = tex.a;
 			o.Alpha = 1;
-			o.Occlusion = spec.a;
+			o.Occlusion = 1;
 		}
 		ENDCG
 		
