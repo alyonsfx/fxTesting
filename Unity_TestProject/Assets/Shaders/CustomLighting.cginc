@@ -13,7 +13,7 @@
 		half Alpha;
 		half Occlusion;
 	};
-	
+
 	inline half4 LightingCustom(SurfaceOutputCustom s, half3 lightDir, half3 halfDir, half atten)
 	{
 		half d = max(0, dot(s.Normal, lightDir));

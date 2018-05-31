@@ -70,7 +70,9 @@
      <Compile Include="Assets\Scripts\StartMenuDemo.cs" />
      <None Include="Assets\Shaders\Particle_AlphaBlend_GradientRemap.shader" />
      <None Include="Assets\Shaders\Kiz\RB_Character_SimpleSpec.shader" />
+     <None Include="Assets\Shaders\Test\VertOffset.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityStandardShadow.cginc" />
+     <None Include="Assets\Shaders\Mobile_Particle_Add_GradientRemap_Animated.shader" />
      <None Include="Assets\Shaders\Particles\ParticleAlpha.shader" />
      <None Include="Assets\Shaders\Particles\ParticleAdd_MaskTrail.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityStandardCore.cginc" />
@@ -82,6 +84,7 @@
      <None Include="Assets\Shaders\Particle_Add_GradientRemap.shader" />
      <None Include="Assets\Shaders\BuiltIn\_Mobile-BumpSpec.shader" />
      <None Include="Assets\Shaders\Particles\ParticleAlpha_SolidColor.shader" />
+     <None Include="Assets\Shaders\Char\Char_Surface_Advanced.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityStandardInput.cginc" />
      <None Include="Assets\Shaders\Particles\ParticleAlpha_Mask_TintEmissive.shader" />
      <None Include="Assets\Shaders\Kiz\RB_Character_Menu.shader" />
