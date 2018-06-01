@@ -5,7 +5,8 @@ Shader "Character/Frag Bump (Master-ish)"
 		_AddColor ("Additive Tint", Color) = (0, 0, 0, 0)
         [NoScaleOffset] _MainTex ("Base (RGB) Team Tint (A)", 2D) = "white" {}
         _TeamColor ("Team Color", Color) = (1, 0, 0, 1)
-		[NoScaleOffset] _SpecMap ("Specular Intensity (R) Smoothness(G) Metallic (B) Glow Intensity (A)", 2D) = "grey" {}
+		[NoScaleOffset] _SpecMap ("Specular Intensity (R) Smoothness(G) Metallic (B) Occlusion (A)", 2D) = "grey" {}
+        [NoScaleOffset] _GlowMap ("Glow (RGB) Skin (A)", 2D) = "black" {}
 		_GlowScale ("Glow Intensity", Range (0, 1)) = 1
 		_RimColor ("Rim Light Color (RGB) Rim Light Intensity (A)", Color) = (1, 0, 1, 1)
 		_RimWidth ("Rim Light Width", Float) = 0.1475
@@ -27,7 +28,7 @@ Shader "Character/Frag Bump (Master-ish)"
             #include "AutoLight.cginc"
             #include "../CustomLighting.cginc"
 
-            sampler2D _MainTex, _SpecMap, _BumpMap;
+            sampler2D _MainTex, _SpecMap, _GlowMap, _BumpMap;
             half _BumpScale, _GlowScale, _RimWidth;
 			half4 _AddColor, _TeamColor, _RimColor;
 
@@ -76,6 +77,7 @@ Shader "Character/Frag Bump (Master-ish)"
                 half4 albedo = tex2D(_MainTex, i.uv);
                 //albedo.rgb = lerp(albedo.rgb, albedo.rgb*_TeamColor, albedo.a*_TeamColor.a);
 				half4 util = tex2D(_SpecMap, i.uv);
+                half4 glowTex = tex2D(_GlowMap, i.uv);
 				half3 highlight = lerp(albedo,lightColor,util.b);
 				half rim = pow((1.0 - saturate(dot(bump, viewDir))), _RimWidth) * _RimColor.a;
 
@@ -90,11 +92,13 @@ Shader "Character/Frag Bump (Master-ish)"
                 half3 diffuse = lightColor * diff * albedo.rgb;
                 half3 specular = highlight * spec;
 
-				half3 edgeGlow = lerp(albedo.rgb, _RimColor, util.b) * rim;
+				//half3 edgeGlow = lerp(albedo.rgb, _RimColor, util.b) * rim;
 
-				half3 glow = lerp(half3(0,0,0), albedo.rgb, util.a) * _GlowScale;
+				//half3 glow = lerp(half3(0,0,0), albedo.rgb, util.a) * _GlowScale;
+                half3 glow = glowTex.rgb * _GlowScale;
 
-                half3 col = (diffuse + specular) * shadow + amb + glow + _RimColor*rim;
+                half3 col = (diffuse + specular) * shadow + amb;
+                //col += amb + glow + _RimColor*rim;
 
 				return float4(col, 1);
 			}
