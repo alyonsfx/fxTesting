@@ -51,9 +51,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\Editor\AssetUtility.cs" />
+     <Compile Include="Assets\Scripts\Editor\CustomThingDrawer.cs" />
+     <Compile Include="Assets\Scripts\Editor\EditorListUtil.cs" />
+     <Compile Include="Assets\Scripts\Editor\EffectsMaterialGenerator.cs" />
+     <Compile Include="Assets\Scripts\Editor\ListTesterInspector.cs" />
      <Compile Include="Assets\Scripts\Editor\TransformInspector.cs" />
      <Compile Include="Assets\ThirdParty\ShaderlabVSCode\Editor\ShaderlabVSCodeEditor.cs" />
      <Compile Include="Assets\ThirdParty\ShaderlabVSCode\Editor\VSCodeBridge.cs" />
+ <Reference Include="Cinemachine">
+ <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.ProBuilder.AddOns.Editor">
  <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
  </Reference>
@@ -63,8 +71,17 @@
  <Reference Include="Unity.ProGrids.Editor">
  <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Unity.ProGrids.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.TextMeshPro.Editor">
+ <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
  <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro">
+ <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/Applications/Unity/Hub/Editor/2018.1.0f2/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -304,25 +321,25 @@
  <HintPath>/Applications/Unity/Hub/Editor/2018.1.0f2/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="ProBuilderMeshOps">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Classes/ProBuilderMeshOps.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Classes/ProBuilderMeshOps.dll</HintPath>
  </Reference>
  <Reference Include="ProBuilderCore">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Classes/ProBuilderCore.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Classes/ProBuilderCore.dll</HintPath>
  </Reference>
  <Reference Include="pb_Stl">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
  </Reference>
  <Reference Include="KdTreeLib">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
  </Reference>
  <Reference Include="Poly2Tri">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
  </Reference>
  <Reference Include="AssetIdRemapUtility">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/AssetIdRemapUtility/Editor/AssetIdRemapUtility.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/AssetIdRemapUtility/Editor/AssetIdRemapUtility.dll</HintPath>
  </Reference>
  <Reference Include="ProBuilderEditor">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Editor/ProBuilderEditor.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Editor/ProBuilderEditor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>/Applications/Unity/Hub/Editor/2018.1.0f2/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

@@ -4,7 +4,9 @@
     "com.unity.analytics": "exclude",
     "com.unity.standardevents": "exclude",
     "com.unity.purchasing": "exclude",
-    "com.unity.progrids": "3.0.2-preview",
-    "com.unity.probuilder": "3.0.8"
+    "com.unity.progrids": "3.0.3-preview.0",
+    "com.unity.probuilder": "3.0.9",
+    "com.unity.textmeshpro": "1.2.3",
+    "com.unity.cinemachine": "2.2.0"
   }
 }

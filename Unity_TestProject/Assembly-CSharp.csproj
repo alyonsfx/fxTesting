@@ -53,9 +53,11 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\CameraFacing.cs" />
      <Compile Include="Assets\Scripts\CounterMagnet.cs" />
+     <Compile Include="Assets\Scripts\CustomThing.cs" />
      <Compile Include="Assets\Scripts\DelayedDestroy.cs" />
      <Compile Include="Assets\Scripts\EmitNow.cs" />
      <Compile Include="Assets\Scripts\HoldTime.cs" />
+     <Compile Include="Assets\Scripts\ListTester.cs" />
      <Compile Include="Assets\Scripts\ObjectSpawner.cs" />
      <Compile Include="Assets\Scripts\OverlayStepper.cs" />
      <Compile Include="Assets\Scripts\ParticleMagnet.cs" />
@@ -68,6 +70,7 @@
      <Compile Include="Assets\Scripts\StartAttackDemo.cs" />
      <Compile Include="Assets\Scripts\StartAuraDemo.cs" />
      <Compile Include="Assets\Scripts\StartMenuDemo.cs" />
+     <Compile Include="Assets\Scripts\Tester.cs" />
      <None Include="Assets\Shaders\Particle_AlphaBlend_GradientRemap.shader" />
      <None Include="Assets\Shaders\Kiz\RB_Character_SimpleSpec.shader" />
      <None Include="Assets\Shaders\Test\VertOffset.shader" />
@@ -79,7 +82,9 @@
      <None Include="Assets\Shaders\Test\TEST5.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_GLSLSupport.glslinc" />
      <None Include="Assets\Shaders\Test\Char6.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\Shaders\BuiltIn\_Mobile-Diffuse.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\Shaders\Family.cginc" />
      <None Include="Assets\Shaders\Particle_Add_GradientRemap.shader" />
      <None Include="Assets\Shaders\BuiltIn\_Mobile-BumpSpec.shader" />
@@ -105,6 +110,7 @@
      <None Include="Assets\Shaders\Unlit\Unlit_TextureTinted_Detail.shader" />
      <None Include="Assets\Shaders\BuiltIn\_Lightmap-BumpSpec.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityPBSLighting.cginc" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\Shaders\Particles\ParticleAlpha_DissolveTest.shader" />
      <None Include="Assets\Shaders\Unlit\Unlit_VertexColor.shader" />
      <None Include="Assets\Shaders\Gameboard.shader" />
@@ -115,6 +121,7 @@
      <None Include="Assets\Shaders\BuiltIn\_Alpha-BumpSpec.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityStandardParticleShadow.cginc" />
      <None Include="Assets\Shaders\Unlit\Unlit_TextureTinted.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\Shaders\FX\Fresnel_Color_Jitter.shader" />
      <None Include="Assets\Shaders\FX\Fresnel_ColorAdd.shader" />
      <None Include="Assets\Shaders\FX\Highlight.shader" />
@@ -143,7 +150,10 @@
      <None Include="Assets\Shaders\Particles\ParticleAlpha_LUT.shader" />
      <None Include="Assets\Shaders\FX\MaskedVignette.shader" />
      <None Include="Assets\Shaders\Kiz\kz_ProbeDiffuse_Rim.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\Shaders\Char\Char_FragLighting.shader" />
+     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\Shaders\Kiz\RB_Character_Spec.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_HLSLSupport.cginc" />
      <None Include="Assets\Shaders\Kiz\RB_Character_Glow.shader" />
@@ -155,6 +165,7 @@
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityStandardUtils.cginc" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityInstancing.cginc" />
      <None Include="Assets\Shaders\Test\Char3.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
      <None Include="Assets\Shaders\Particles\ParticleAdd_CullBack.shader" />
      <None Include="Assets\Shaders\Unlit\Unlit_ColorBlend_WorldZ.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityStandardCoreForwardSimple.cginc" />
@@ -167,14 +178,19 @@
      <None Include="Assets\Shaders\Debug\Debug_UV1.shader" />
      <None Include="Assets\Shaders\Kiz\RB_Character_Demo.shader" />
      <None Include="Assets\Shaders\Char\Char_Bumped_FragLighting.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\Shaders\FX\Fresnel_TextureAdd_Plus.shader" />
      <None Include="Assets\Shaders\SteppedOverlay.shader" />
      <None Include="Assets\Shaders\Test\Char4.shader" />
      <None Include="Assets\Shaders\Unlit\Unlit_AlphaTestTinted.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_AutoLight.cginc" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\Shaders\Progressbar.shader" />
      <None Include="Assets\Shaders\Test\Char2.shader" />
      <None Include="Assets\Shaders\FX\Fresnel_TextureAdd.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\Shaders\UI\Unlit_AlphaTinted_NoZ.shader" />
      <None Include="Assets\Shaders\Particles\ParticleAdd_Anim.shader" />
      <None Include="Assets\Shaders\FX\Fresnel_ColorAlpha.shader" />
@@ -183,8 +199,10 @@
      <None Include="Assets\Shaders\Particles\ParticleAlpha_Anim.shader" />
      <None Include="Assets\Shaders\Kiz\SeparableBlur.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityCG.cginc" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
      <None Include="Assets\Shaders\Test\TEST6.shader" />
      <None Include="Assets\Shaders\FX\Fresnel_ColorAlpha_Jitter.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\Shaders\Test\TEST1.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_Lighting.cginc" />
      <None Include="Assets\Shaders\Debug\Debug_Normals.shader" />
@@ -194,10 +212,15 @@
      <None Include="Assets\Shaders\Debug\Debug_VertexColor.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityStandardParticles.cginc" />
      <None Include="Assets\Shaders\Debug\Debug_UV2.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\Shaders\BuiltIn\CGINC\_UnityCG.glslinc" />
      <None Include="Assets\Shaders\FX\Fresnel_Color.shader" />
      <None Include="Assets\Shaders\Char\Char_VertexOnly.shader" />
      <None Include="Assets\Shaders\Particles\ParticleAlpha_Mask.shader" />
+     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
+ <Reference Include="Cinemachine">
+ <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.ProBuilder.AddOns.Editor">
  <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Unity.ProBuilder.AddOns.Editor.dll</HintPath>
  </Reference>
@@ -207,8 +230,17 @@
  <Reference Include="Unity.ProGrids.Editor">
  <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Unity.ProGrids.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.TextMeshPro.Editor">
+ <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.PackageManagerUI.Editor">
  <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro">
+ <HintPath>/Users/andrewlyons/Documents/testing/fxTesting/Unity_TestProject/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.AIModule">
  <HintPath>/Applications/Unity/Hub/Editor/2018.1.0f2/Unity.app/Contents/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -400,19 +432,19 @@
  <HintPath>/Applications/Unity/Hub/Editor/2018.1.0f2/Unity.app/Contents/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
  </Reference>
  <Reference Include="ProBuilderMeshOps">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Classes/ProBuilderMeshOps.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Classes/ProBuilderMeshOps.dll</HintPath>
  </Reference>
  <Reference Include="ProBuilderCore">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Classes/ProBuilderCore.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Classes/ProBuilderCore.dll</HintPath>
  </Reference>
  <Reference Include="pb_Stl">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
  </Reference>
  <Reference Include="KdTreeLib">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
  </Reference>
  <Reference Include="Poly2Tri">
- <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.8/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
+ <HintPath>/Users/andrewlyons/Library/Unity/cache/packages/packages.unity.com/com.unity.probuilder@3.0.9/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>/Applications/Unity/Hub/Editor/2018.1.0f2/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>
