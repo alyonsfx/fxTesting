@@ -6,8 +6,7 @@
         _ColumnsX ("Columns (X)", int) = 1
         _RowsY ("Rows (Y)", int) = 1
         _AnimSpeed ("Frames Per Seconds", float) = 10
-        _AnimOffset ("Animation Offset", float) = 0
-        _AtlasInfo ("Description", Vector) = (1, 1, 1, 1)
+        _AtlasInfo ("X Position, Y Position, Width, Height", Vector) = (1, 1, 1, 1)
         [MaterialToggle] PixelSnap ("Pixel snap", Float) = 0
         [HideInInspector] _RendererColor ("RendererColor", Color) = (1, 1, 1, 1)
         [HideInInspector] _Flip ("Flip", Vector) = (1, 1, 1, 1)
@@ -60,7 +59,7 @@
             sampler2D _MainTex;
             uint _ColumnsX;
             uint _RowsY;
-            half _AnimSpeed, _AnimOffset;
+            half _AnimSpeed;
             half4 _AtlasInfo;
             uniform half4 _MainTex_TexelSize;
 
@@ -69,13 +68,13 @@
                 return half4(pos.xy * flip, pos.z, 1.0);
             }
 
-            half2 flipbookUVs(half2 IN, half2 layout, half speed, half offset)
+            half2 flipbookUVs(half2 IN, half2 layout, half speed)
             {
                 // get single sprite size
                 float2 size = float2(1.0f / layout.x, 1.0f / layout.y);
                 uint totalFrames = layout.x * layout.y;
                 // use timer to increment index
-                uint index = _Time.y * speed + offset;
+                uint index = _Time.y * speed;
                 // wrap x and y indexes
                 uint indexX = index % layout.x;
                 uint indexY = floor((index % totalFrames) / layout.x);
@@ -112,23 +111,15 @@
                 half2 uvs = IN.texcoord;
 
                 // Convert UV cordinates so they are local to sprite
-                uvs.x *= _MainTex_TexelSize.z;
-                uvs.x -= _AtlasInfo.x;
-                uvs.x /= _AtlasInfo.z;
-                uvs.y *= _MainTex_TexelSize.w;
-                uvs.y -= _AtlasInfo.y;
-                uvs.y /= _AtlasInfo.w;
+                uvs.x = (uvs.x * _MainTex_TexelSize.z - _AtlasInfo.x) / _AtlasInfo.z;
+                uvs.y = (uvs.y * _MainTex_TexelSize.w - _AtlasInfo.y) / _AtlasInfo.w;
 
                 // Do flipbook calculations
-                uvs = flipbookUVs(uvs, half2(_ColumnsX, _RowsY), _AnimSpeed, _AnimOffset);
+                uvs = flipbookUVs(uvs, half2(_ColumnsX, _RowsY), _AnimSpeed);
                 
                 // Convert UV cordinates back relative to the entire atlas
-                uvs.x *= _AtlasInfo.z;
-                uvs.x += _AtlasInfo.x;
-                uvs.x *= _MainTex_TexelSize.x;
-                uvs.y *= _AtlasInfo.w;
-                uvs.y += _AtlasInfo.y;
-                uvs.y *= _MainTex_TexelSize.y;
+                uvs.x = (uvs.x * _AtlasInfo.z + _AtlasInfo.x) * _MainTex_TexelSize.x;
+                uvs.y = (uvs.y * _AtlasInfo.w + _AtlasInfo.y) * _MainTex_TexelSize.y;
 
                 OUT.texcoord = uvs;
                 OUT.color = IN.color;
