@@ -1,232 +1,284 @@
-﻿using UnityEngine;
-using UnityEditor;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
+using UnityEngine;
+using Object = UnityEngine.Object;
 
-public class FindReferencesWindow : EditorWindow
+namespace Editor
 {
-	private searchType inputType;
-	private AnimationClip inputA;
-	private Material inputM;
-	private Shader inputS;
-	private Texture inputT;
-	private List<string> results = new List<string>();
-	private Vector2 scroll;
-	private bool showResults = false;
-	private bool searchMaterials = false;
-	private searchType previousInputType;
-
-	[MenuItem("Tools/Find References")]
-	public static void Open()
+	public class FindReferencesWindow : EditorWindow
 	{
-		GetWindow<FindReferencesWindow>(false, "Find References", true);
-	}
-
-	public enum searchType
-	{
-		animation,
-		material,
-		texture,
-		shader
-	};
-
-	void OnGUI()
-	{
-		EditorGUILayout.BeginHorizontal();
-		if (previousInputType != inputType)
+		private enum SearchType
 		{
-			inputA = null;
-			inputM = null;
-			inputS = null;
-			inputT = null;
-			showResults = false;
-		}
-		previousInputType = inputType;
-		EditorGUIUtility.labelWidth = 35f;
-		inputType = (searchType)EditorGUILayout.EnumPopup("Find:", inputType);
-		EditorGUILayout.Space();
-		if (showResults)
+			Animation,
+			Controller,
+			Material,
+			Prefab,
+			Texture,
+			Shader
+		};
+		private SearchType inputType;
+		private SearchType previousInputType;
+		private Object input;
+		private Object prevInput;
+		private readonly List<string> results = new List<string>();
+		private Vector2 scroll;
+		private bool showResults;
+		private bool searchMaterials;
+		private string fileName;
+		private string targetPath;
+
+
+		[MenuItem("Tools/Find References")]
+		public static void Open()
 		{
-			EditorGUILayout.LabelField(results.Count.ToString());
-		}
-		else
-		{
-			EditorGUILayout.LabelField("");
-		}
-		EditorGUILayout.EndHorizontal();
-
-		EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth * 0.5f;
-		displayInput();
-	}
-
-	private void displayInput()
-	{
-
-		switch (inputType)
-		{
-			case searchType.animation:
-				{
-					EditorGUILayout.BeginHorizontal();
-					AnimationClip prev = inputA;
-					inputA = EditorGUILayout.ObjectField(inputA, typeof(AnimationClip), false) as AnimationClip;
-					if (GUILayout.Button("Find") && inputA != null)
-					{
-						searchMaterials = false;
-						seachObjects(findTarget(inputA));
-						showResults = true;
-					}
-					if (GUILayout.Button("Clear"))
-					{
-						inputA = null;
-						results.Clear();
-						showResults = false;
-					}
-					EditorGUILayout.EndHorizontal();
-					showObjects();
-					break;
-				}
-			case searchType.material:
-				{
-					EditorGUILayout.BeginHorizontal();
-					Material prev = inputM;
-					inputM = EditorGUILayout.ObjectField(inputM, typeof(Material), false) as Material;
-					if (GUILayout.Button("Find") && inputM != null)
-					{
-						searchMaterials = false;
-						seachObjects(findTarget(inputM));
-						showResults = true;
-					}
-					if (GUILayout.Button("Clear"))
-					{
-						inputM = null;
-						results.Clear();
-						showResults = false;
-					}
-					EditorGUILayout.EndHorizontal();
-					showObjects();
-					break;
-				}
-			case searchType.shader:
-				{
-					EditorGUILayout.BeginHorizontal();
-					Shader prev = inputS;
-					inputS = EditorGUILayout.ObjectField(inputS, typeof(Shader), false) as Shader;
-					if (GUILayout.Button("Materials") && inputS != null)
-					{
-						searchMaterials = true;
-						seachObjects(findTarget(inputS));
-						showResults = true;
-					}
-					if (GUILayout.Button("Prefabs") && inputS != null)
-					{
-						searchMaterials = false;
-						seachObjects(findTarget(inputS));
-						showResults = true;
-					}
-					if (GUILayout.Button("Clear"))
-					{
-						inputT = null;
-						results.Clear();
-						showResults = false;
-					}
-					EditorGUILayout.EndHorizontal();
-					showObjects();
-					break;
-				}
-			case searchType.texture:
-				{
-					EditorGUILayout.BeginHorizontal();
-					Texture prev = inputT;
-					inputT = EditorGUILayout.ObjectField(inputT, typeof(Texture), false) as Texture;
-					if (GUILayout.Button("Materials") && inputT != null)
-					{
-						searchMaterials = true;
-						seachObjects(findTarget(inputT));
-						showResults = true;
-					}
-					if (GUILayout.Button("Prefabs") && inputT != null)
-					{
-						searchMaterials = false;
-						seachObjects(findTarget(inputT));
-						showResults = true;
-					}
-					if (GUILayout.Button("Clear"))
-					{
-						inputT = null;
-						results.Clear();
-						showResults = false;
-					}
-					EditorGUILayout.EndHorizontal();
-					showObjects();
-					break;
-				}
-		}
-	}
-
-	private string findTarget(AnimationClip a)
-	{
-		return AssetDatabase.GetAssetPath(a);
-	}
-
-	private string findTarget(Material m)
-	{
-		return AssetDatabase.GetAssetPath(m);
-	}
-
-	private string findTarget(Shader s)
-	{
-		return AssetDatabase.GetAssetPath(s);
-	}
-
-	private string findTarget(Texture t)
-	{
-		return AssetDatabase.GetAssetPath(t);
-	}
-
-	private void seachObjects(string target)
-	{
-		string searchTerm = searchMaterials ? "t:Material" : "t:Prefab";
-		string[] allObjects = AssetDatabase.FindAssets(searchTerm);
-		results.Clear();
-		for (int i = 0; i < allObjects.Length; i++)
-		{
-			string temp = AssetDatabase.GUIDToAssetPath(allObjects[i]);
-			string[] dep = AssetDatabase.GetDependencies(temp);
-			if (ArrayUtility.Contains(dep, target))
-				results.Add(temp);
-		}
-	}
-
-	private void showObjects()
-	{
-		if (!showResults)
-		{
-			return;
+			GetWindow<FindReferencesWindow>(false, "Find References", true);
 		}
 
-		scroll = EditorGUILayout.BeginScrollView(scroll);
+		private void OnGUI()
 		{
-			if (results.Count == 0)
+			EditorGUILayout.BeginHorizontal();
+			// Reset everything when we change search type
+			if (previousInputType != inputType)
 			{
-				EditorGUILayout.HelpBox("No Occurences Found", MessageType.Info);
+				ClearAll();
+			}
+			previousInputType = inputType;
+			EditorGUIUtility.labelWidth = 66f;
+			inputType = (SearchType)EditorGUILayout.EnumPopup("Input Type:", inputType);
+			EditorGUILayout.Space();
+			// Show count
+			if (showResults)
+			{
+				EditorGUILayout.LabelField("References Found: " + results.Count.ToString());
 			}
 			else
 			{
-				for (int i = 0; i < results.Count; i++)
-				{
-					EditorGUILayout.BeginHorizontal();
-					{
-						EditorGUILayout.LabelField(Path.GetFileNameWithoutExtension(results[i]));
-						EditorGUILayout.Space();
-						if (GUILayout.Button("Show"))
-						{
-							EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath(results[i], typeof(Object)));
-						}
-					}
-					EditorGUILayout.EndHorizontal();
-				}
+				EditorGUILayout.LabelField("References Found:");
+			}
+			EditorGUILayout.EndHorizontal();
+
+			EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth * 0.5f;
+			// Show object field and search type
+			InputDisplay();
+			// Show results
+			if (showResults)
+			{
+				ShowObjects();
 			}
 		}
-		EditorGUILayout.EndScrollView();
+
+		private void ClearAll()
+		{
+			input = null;
+			results.Clear();
+			showResults = false;
+		}
+
+		private void InputDisplay()
+		{
+			EditorGUILayout.BeginHorizontal();
+			switch (inputType)
+			{
+				case SearchType.Animation:
+				{
+					prevInput = input;
+					input = EditorGUILayout.ObjectField(input, typeof(AnimationClip), false) as AnimationClip;
+					// Reset results if we change the target
+					if (prevInput != input)
+					{
+						results.Clear();
+						showResults = false;
+					}
+					if (GUILayout.Button("Find") && input != null)
+					{
+						searchMaterials = false;
+						SearchProject(input);
+					}
+					break;
+				}
+				case SearchType.Material:
+				{
+					prevInput = input;
+					input = EditorGUILayout.ObjectField(input, typeof(Material), false) as Material;
+					// Reset results if we change the target
+					if (prevInput != input)
+					{
+						results.Clear();
+						showResults = false;
+					}
+					if (GUILayout.Button("Find") && input != null)
+					{
+						searchMaterials = false;
+						SearchProject(input);
+					}
+					break;
+				}
+				case SearchType.Shader:
+				{
+					prevInput = input;
+					input = EditorGUILayout.ObjectField(input, typeof(Shader), false) as Shader;
+					// Reset results if we change the target
+					if (prevInput != input)
+					{
+						results.Clear();
+						showResults = false;
+					}
+					if (GUILayout.Button("Materials") && input != null)
+					{
+						searchMaterials = true;
+						SearchProject(input);
+					}
+					if (GUILayout.Button("Prefabs") && input != null)
+					{
+						searchMaterials = false;
+						SearchProject(input);
+					}
+					break;
+				}
+				case SearchType.Texture:
+				{
+					prevInput = input;
+					input = EditorGUILayout.ObjectField(input, typeof(Texture), false) as Texture;
+					// Reset results if we change the target
+					if (prevInput != input)
+					{
+						results.Clear();
+						showResults = false;
+					}
+					if (GUILayout.Button("Materials") && input != null)
+					{
+						searchMaterials = true;
+						SearchProject(input);
+					}
+					if (GUILayout.Button("Prefabs") && input != null)
+					{
+						searchMaterials = false;
+						SearchProject(input);
+					}
+					break;
+				}
+				case SearchType.Controller:
+				{
+					prevInput = input;
+					input = EditorGUILayout.ObjectField(input, typeof(RuntimeAnimatorController), false) as RuntimeAnimatorController;
+					// Reset results if we change the target
+					if (prevInput != input)
+					{
+						results.Clear();
+						showResults = false;
+					}
+					if (GUILayout.Button("Find") && input != null)
+					{
+						searchMaterials = false;
+						SearchProject(input);
+					}
+					break;
+				}
+				case SearchType.Prefab:
+				default:
+				{
+					prevInput = input;
+					input = EditorGUILayout.ObjectField(input, typeof(Object), false);
+					// Reset results if we change the target
+					if (prevInput != input)
+					{
+						results.Clear();
+						showResults = false;
+					}
+					if (GUILayout.Button("Find") && input != null)
+					{
+						searchMaterials = false;
+						SearchProject(input);
+					}
+					break;
+				}
+			}
+
+			if (GUILayout.Button("Clear"))
+			{
+				ClearAll();
+			}
+			EditorGUILayout.EndHorizontal();
+		}
+
+
+		private void SearchProject(Object selectedObject)
+		{
+			results.Clear();
+			// Find the path to the target file
+			fileName = selectedObject.name;
+			var t = fileName.Split('.');
+			fileName = t[0];
+			targetPath = AssetDatabase.GetAssetPath(selectedObject);
+			// Look at all prefabs or materials
+			var searchType = searchMaterials ? "t:Material" : "t:Prefab";
+			// Store file paths
+			var allObjects = AssetDatabase.FindAssets(searchType);
+			foreach (var thisObject in allObjects)
+			{
+				var temp = AssetDatabase.GUIDToAssetPath(thisObject);
+				// Compare dependency
+				var dependencies = AssetDatabase.GetDependencies(temp);
+				if (ArrayUtility.Contains(dependencies, targetPath))
+					results.Add(temp);
+			}
+			showResults = true;
+		}
+
+		private void ShowObjects()
+		{
+			scroll = EditorGUILayout.BeginScrollView(scroll);
+			{
+				// Nothing found
+				if (results.Count == 0)
+				{
+					EditorGUILayout.HelpBox("No Occurrence Found", MessageType.Info);
+					if (GUILayout.Button("Delete"))
+					{
+						if (!searchMaterials)
+						{
+							AssetDatabase.DeleteAsset(targetPath);
+							ClearAll();
+						}
+						else
+						{
+							if (EditorUtility.DisplayDialog("Are you sure you want to delete this?", fileName + " might still be used in a prefab", "Confirm", "Cancel"))
+							{
+								AssetDatabase.DeleteAsset(targetPath);
+								ClearAll();
+							}
+						}
+					}
+				}
+				// Objects found
+				else
+				{
+					foreach (var file in results)
+					{
+						EditorGUILayout.BeginHorizontal();
+						{
+							EditorGUILayout.LabelField(Path.GetFileNameWithoutExtension(file));
+							EditorGUILayout.Space();
+							if (GUILayout.Button("Show"))
+							{
+								EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath(file, typeof(Object)));
+							}
+							if (!searchMaterials)
+							{
+								if (GUILayout.Button("Open"))
+								{
+									AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath(file, typeof(Object)));
+									EditorApplication.ExecuteMenuItem("Window/General/Hierarchy");
+								}
+							}
+						}
+						EditorGUILayout.EndHorizontal();
+					}
+				}
+			}
+			EditorGUILayout.EndScrollView();
+		}
 	}
 }
