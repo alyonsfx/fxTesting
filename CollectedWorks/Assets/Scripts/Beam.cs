@@ -1,6 +1,7 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(LineRenderer))]
 public class Beam : MonoBehaviour
@@ -9,16 +10,17 @@ public class Beam : MonoBehaviour
     [SerializeField] private Gradient _colorOverLifetime;
     [SerializeField] private Gradient _colorOverBeam;
     [SerializeField] private AnimationCurve _widthOverLifetime;
-    [SerializeField] private float _points;
-    [SerializeField] private Texture2D noiseTexture;
-    [SerializeField] private float _dampening;
+    [SerializeField] private Texture2D _noiseTexture;
+    [SerializeField] private Vector3 _noiseSpeed;
+    [SerializeField] private Vector3 _noiseStrength;
+    [SerializeField] private Vector3 _noiseFrequency;
+    [SerializeField] private Vector3 _dampening;
     [SerializeField] private AnimationCurve _noiseOverLength;
     [SerializeField] private AnimationCurve _noiseOverLifetime;
     [SerializeField] private bool _followTarget;
     [SerializeField] private AnimationCurve _gorwthCurve;
     [SerializeField] private bool _reverseGrowth;
     [SerializeField] private int _spans;
-    [SerializeField] private int test = 2;
 
     public Transform Start;
     public Transform Target;
@@ -29,7 +31,9 @@ public class Beam : MonoBehaviour
     private Vector3 _targetVector;
     private float _distance;
     private float _startWidth;
-
+    private Vector2 _startNoiseX, _startNoiseY, _startNoiseZ;
+    private int _currentSpans, _currentPoints;
+    private Vector3[] _straightLine, _previousPosistions;
 
     private void Awake()
     {
@@ -43,66 +47,71 @@ public class Beam : MonoBehaviour
     {
         if (Input.GetKeyUp("space"))
         {
-            Debug.Log("Spawn!!");
+            _startNoiseX = new Vector2(Random.Range(0.00f, 1.00f), Random.Range(0.00f, 1.00f));
+            _startNoiseY = new Vector2(Random.Range(0.00f, 1.00f), Random.Range(0.00f, 1.00f));
+            _startNoiseZ = new Vector2(Random.Range(0.00f, 1.00f), Random.Range(0.00f, 1.00f));
             Spawn();
         }
 
-        if (_line.positionCount<2)
+        if (_currentSpans<2)
         {
             return;
         }
 
         if (_timeLived > _lifetime)
         {
-            Debug.Log("Lived for: " + _timeLived);
             Kill();
             return;
         }
 
-        UpdateLine();
+        updateLine();
         _timeLived += Time.deltaTime;
     }
 
     public void Spawn()
     {
+        if (_currentSpans > 1)
+        {
+            return;
+        }
         _timeLived = _normalTime = 0f;
-        _line.positionCount = _spans;
+        _line.positionCount = _currentPoints = _spans+1;
+        _currentSpans = _spans;
         getVector();
     }
 
     private void Kill()
     {
-        _line.positionCount = 0;
+        _line.positionCount = _currentSpans = _currentPoints = 0;
     }
 
-    private void UpdateLine()
+    private void updateLine()
     {
         _normalTime = _timeLived / _lifetime;
         growBeam();
         applyWidthOverLifetime();
         applyColorOverLifetime();
+        applyNoise();
     }
 
-    // Find Vector
     private void getVector()
     {
         var heading = Target.position - Start.position;
         _distance = heading.magnitude;
-        Debug.Log("Distance = "+ _distance);
         _targetVector = heading / _distance;
     }
 
     private void growBeam()
     {
-        _line.positionCount = _spans;
         var scale = _gorwthCurve.Evaluate(_normalTime);
-        var positions = new Vector3[_spans];
-        for (var i = 0; i < _spans; i++)
+        var positions = new Vector3[_currentPoints];
+        for (var i = 0; i < _currentPoints; i++)
         {
-            var offset = (float)i / (_spans - 1f) * _distance * scale;
+            var offset = i / (float)_currentSpans * _distance * scale;
             positions[i] = Start.position + _targetVector * offset;
         }
         _line.SetPositions(positions);
+        _straightLine = positions;
     }
 
     private void applyWidthOverLifetime()
@@ -130,4 +139,49 @@ public class Beam : MonoBehaviour
         output.SetKeys(outputColor, outputAlpha);
         _line.colorGradient = output;
     }
+
+    private void applyNoise()
+    {
+        // TODO: Repeat this for Y and Z
+        var lifeMultiplier = _noiseOverLifetime.Evaluate(_normalTime);
+        var uvOffset = new Vector2(_startNoiseX.x,  _timeLived * _noiseSpeed.x + _startNoiseX.y );
+        var positions = new Vector3[_currentPoints];
+        _line.GetPositions(positions);
+        for (var i = 0; i < _currentPoints; i++)
+        {
+            var pct = i / (float)_currentSpans;
+            var localMultiplier = _noiseOverLength.Evaluate(pct);
+            var offset = getPixelValue(new Vector2((uvOffset.x+pct)* _noiseFrequency.x, uvOffset.y * _noiseFrequency.x), 0);
+            offset *= 2f;
+            offset -= 1f;
+            offset *= _noiseStrength.x * lifeMultiplier * localMultiplier;
+            var pos = positions[i];
+            pos += Vector3.up*offset;
+            positions[i] = pos;
+        }
+        _line.SetPositions(positions);
+        // TODO: Dampen the noise
+        _previousPosistions = positions;
+    }
+
+    private float getPixelValue(Vector2 uv, int channel)
+    {
+        var uPos = Mathf.RoundToInt(uv.x % 1 * _noiseTexture.width);
+        var vPos = Mathf.RoundToInt(uv.y % 1 * _noiseTexture.height);
+        float output;
+        switch (channel) {
+            default:
+                output = _noiseTexture.GetPixel(uPos, vPos).r;
+                break;
+            case 1:
+                output = _noiseTexture.GetPixel(uPos, vPos).g;
+                break;
+            case 2:
+                output = _noiseTexture.GetPixel(uPos, vPos).b;
+                break;
+        }
+        return output;
+    }
+
+
 }
