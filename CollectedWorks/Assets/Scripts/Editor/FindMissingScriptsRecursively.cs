@@ -19,11 +19,11 @@ public class FindMissingScriptsRecursively : EditorWindow
 	}
 	private static void FindInSelected()
 	{
-		var go = Selection.gameObjects;
+		GameObject[] go = Selection.gameObjects;
 		go_count = 0;
 		components_count = 0;
 		missing_count = 0;
-		foreach (var g in go)
+		foreach (GameObject g in go)
 		{
 			FindInGO(g);
 		}
@@ -33,15 +33,15 @@ public class FindMissingScriptsRecursively : EditorWindow
 	private static void FindInGO(GameObject g)
 	{
 		go_count++;
-		var components = g.GetComponents<Component>();
-		for (var i = 0; i < components.Length; i++)
+		Component[] components = g.GetComponents<Component>();
+		for (int i = 0; i < components.Length; i++)
 		{
 			components_count++;
 			if (components[i] == null)
 			{
 				missing_count++;
-				var s = g.name;
-				var t = g.transform;
+				string s = g.name;
+				Transform t = g.transform;
 				while (t.parent != null)
 				{
 					s = t.parent.name + "/" + s;

@@ -57,7 +57,7 @@ public class TransformInspector : Editor
 			}
 		}
 		GUILayout.EndHorizontal();
-		
+
 		GUILayout.Label("Local Rotation");
 		GUILayout.BeginHorizontal();
 		{
