@@ -1,25 +1,13 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace Editor
+namespace PersonalEditorTools.Editor
 {
 	public class FindReferencesWindow : EditorWindow
 	{
-		private enum SearchType
-		{
-			Animation,
-			Controller,
-			Material,
-			Prefab,
-			Texture,
-			Shader
-		};
-		private SearchType inputType;
-		private SearchType previousInputType;
 		private Object input;
 		private Object prevInput;
 		private readonly List<string> results = new List<string>();
@@ -29,7 +17,6 @@ namespace Editor
 		private string fileName;
 		private string targetPath;
 
-
 		[MenuItem("Tools/Find References")]
 		public static void Open()
 		{
@@ -38,17 +25,37 @@ namespace Editor
 
 		private void OnGUI()
 		{
+			EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth * 0.5f;
 			EditorGUILayout.BeginHorizontal();
-			// Reset everything when we change search type
-			if (previousInputType != inputType)
+
+			// Show object field and search type
+			prevInput = input;
+			input = EditorGUILayout.ObjectField(input, typeof(Object), false);
+
+			// Reset results if we change the target
+			if (prevInput != input)
 			{
-				ClearAll();
+				results.Clear();
+				showResults = false;
 			}
-			previousInputType = inputType;
-			EditorGUIUtility.labelWidth = 66f;
-			inputType = (SearchType)EditorGUILayout.EnumPopup("Input Type:", inputType);
-			EditorGUILayout.Space();
-			// Show count
+
+			if (GUILayout.Button("Prefabs") && input != null)
+			{
+				searchMaterials = false;
+				SearchProject(input);
+			}
+
+			if (GUILayout.Button("Materials") && input != null)
+			{
+				searchMaterials = true;
+				SearchProject(input);
+			}
+
+			EditorGUILayout.EndHorizontal();
+
+			EditorGUILayout.BeginHorizontal();
+
+
 			if (showResults)
 			{
 				EditorGUILayout.LabelField("References Found: " + results.Count.ToString());
@@ -57,11 +64,14 @@ namespace Editor
 			{
 				EditorGUILayout.LabelField("References Found:");
 			}
+
+			if (GUILayout.Button("Clear"))
+			{
+				ClearAll();
+			}
+
 			EditorGUILayout.EndHorizontal();
 
-			EditorGUIUtility.labelWidth = EditorGUIUtility.currentViewWidth * 0.5f;
-			// Show object field and search type
-			InputDisplay();
 			// Show results
 			if (showResults)
 			{
@@ -76,154 +86,31 @@ namespace Editor
 			showResults = false;
 		}
 
-		private void InputDisplay()
-		{
-			EditorGUILayout.BeginHorizontal();
-			switch (inputType)
-			{
-				case SearchType.Animation:
-				{
-					prevInput = input;
-					input = EditorGUILayout.ObjectField(input, typeof(AnimationClip), false) as AnimationClip;
-					// Reset results if we change the target
-					if (prevInput != input)
-					{
-						results.Clear();
-						showResults = false;
-					}
-					if (GUILayout.Button("Find") && input != null)
-					{
-						searchMaterials = false;
-						SearchProject(input);
-					}
-					break;
-				}
-				case SearchType.Material:
-				{
-					prevInput = input;
-					input = EditorGUILayout.ObjectField(input, typeof(Material), false) as Material;
-					// Reset results if we change the target
-					if (prevInput != input)
-					{
-						results.Clear();
-						showResults = false;
-					}
-					if (GUILayout.Button("Find") && input != null)
-					{
-						searchMaterials = false;
-						SearchProject(input);
-					}
-					break;
-				}
-				case SearchType.Shader:
-				{
-					prevInput = input;
-					input = EditorGUILayout.ObjectField(input, typeof(Shader), false) as Shader;
-					// Reset results if we change the target
-					if (prevInput != input)
-					{
-						results.Clear();
-						showResults = false;
-					}
-					if (GUILayout.Button("Materials") && input != null)
-					{
-						searchMaterials = true;
-						SearchProject(input);
-					}
-					if (GUILayout.Button("Prefabs") && input != null)
-					{
-						searchMaterials = false;
-						SearchProject(input);
-					}
-					break;
-				}
-				case SearchType.Texture:
-				{
-					prevInput = input;
-					input = EditorGUILayout.ObjectField(input, typeof(Texture), false) as Texture;
-					// Reset results if we change the target
-					if (prevInput != input)
-					{
-						results.Clear();
-						showResults = false;
-					}
-					if (GUILayout.Button("Materials") && input != null)
-					{
-						searchMaterials = true;
-						SearchProject(input);
-					}
-					if (GUILayout.Button("Prefabs") && input != null)
-					{
-						searchMaterials = false;
-						SearchProject(input);
-					}
-					break;
-				}
-				case SearchType.Controller:
-				{
-					prevInput = input;
-					input = EditorGUILayout.ObjectField(input, typeof(RuntimeAnimatorController), false) as RuntimeAnimatorController;
-					// Reset results if we change the target
-					if (prevInput != input)
-					{
-						results.Clear();
-						showResults = false;
-					}
-					if (GUILayout.Button("Find") && input != null)
-					{
-						searchMaterials = false;
-						SearchProject(input);
-					}
-					break;
-				}
-				case SearchType.Prefab:
-				default:
-				{
-					prevInput = input;
-					input = EditorGUILayout.ObjectField(input, typeof(Object), false);
-					// Reset results if we change the target
-					if (prevInput != input)
-					{
-						results.Clear();
-						showResults = false;
-					}
-					if (GUILayout.Button("Find") && input != null)
-					{
-						searchMaterials = false;
-						SearchProject(input);
-					}
-					break;
-				}
-			}
-
-			if (GUILayout.Button("Clear"))
-			{
-				ClearAll();
-			}
-			EditorGUILayout.EndHorizontal();
-		}
-
-
-		private void SearchProject(Object selectedObject)
+		private void SearchProject(Object selectedObject, bool isBulk = false)
 		{
 			results.Clear();
+
 			// Find the path to the target file
 			fileName = selectedObject.name;
 			var t = fileName.Split('.');
 			fileName = t[0];
 			targetPath = AssetDatabase.GetAssetPath(selectedObject);
+
 			// Look at all prefabs or materials
 			var searchType = searchMaterials ? "t:Material" : "t:Prefab";
+
 			// Store file paths
 			var allObjects = AssetDatabase.FindAssets(searchType);
 			foreach (var thisObject in allObjects)
 			{
 				var temp = AssetDatabase.GUIDToAssetPath(thisObject);
+
 				// Compare dependency
 				var dependencies = AssetDatabase.GetDependencies(temp);
 				if (ArrayUtility.Contains(dependencies, targetPath))
 					results.Add(temp);
 			}
+
 			showResults = true;
 		}
 
@@ -231,54 +118,76 @@ namespace Editor
 		{
 			scroll = EditorGUILayout.BeginScrollView(scroll);
 			{
-				// Nothing found
-				if (results.Count == 0)
+				if (results.Count < 1)
 				{
-					EditorGUILayout.HelpBox("No Occurrence Found", MessageType.Info);
-					if (GUILayout.Button("Delete"))
+					NoResults();
+				}
+				else if (results.Count < 2)
+				{
+					if (results[0] != targetPath)
 					{
-						if (!searchMaterials)
-						{
-							AssetDatabase.DeleteAsset(targetPath);
-							ClearAll();
-						}
-						else
-						{
-							if (EditorUtility.DisplayDialog("Are you sure you want to delete this?", fileName + " might still be used in a prefab", "Confirm", "Cancel"))
-							{
-								AssetDatabase.DeleteAsset(targetPath);
-								ClearAll();
-							}
-						}
+						YesResults();
+					}
+					else
+					{
+						NoResults();
 					}
 				}
-				// Objects found
 				else
 				{
-					foreach (var file in results)
-					{
-						EditorGUILayout.BeginHorizontal();
-						{
-							EditorGUILayout.LabelField(Path.GetFileNameWithoutExtension(file));
-							EditorGUILayout.Space();
-							if (GUILayout.Button("Show"))
-							{
-								EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath(file, typeof(Object)));
-							}
-							if (!searchMaterials)
-							{
-								if (GUILayout.Button("Open"))
-								{
-									AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath(file, typeof(Object)));
-									EditorApplication.ExecuteMenuItem("Window/General/Hierarchy");
-								}
-							}
-						}
-						EditorGUILayout.EndHorizontal();
-					}
+					YesResults();
 				}
 			}
 			EditorGUILayout.EndScrollView();
 		}
+
+		private void NoResults()
+		{
+			var warning = results.Count < 1 ? "No occurrence found" : "Selected object is only occurrence";
+			EditorGUILayout.HelpBox(warning, MessageType.Info);
+			if (GUILayout.Button("Delete"))
+			{
+				if (!searchMaterials)
+				{
+					AssetDatabase.DeleteAsset(targetPath);
+					ClearAll();
+				}
+				else
+				{
+					if (EditorUtility.DisplayDialog("Are you sure you want to delete this?", fileName + " might still be used in a prefab", "Confirm", "Cancel"))
+					{
+						AssetDatabase.DeleteAsset(targetPath);
+						ClearAll();
+					}
+				}
+			}
+		}
+
+		private void YesResults()
+		{
+			foreach (var file in results)
+			{
+				EditorGUILayout.BeginHorizontal();
+				{
+					EditorGUILayout.LabelField(Path.GetFileNameWithoutExtension(file));
+					EditorGUILayout.Space();
+					if (GUILayout.Button("Show"))
+					{
+						EditorGUIUtility.PingObject(AssetDatabase.LoadAssetAtPath(file, typeof(Object)));
+					}
+
+					if (!searchMaterials)
+					{
+						if (GUILayout.Button("Open"))
+						{
+							AssetDatabase.OpenAsset(AssetDatabase.LoadAssetAtPath(file, typeof(Object)));
+							EditorApplication.ExecuteMenuItem("Window/General/Hierarchy");
+						}
+					}
+				}
+				EditorGUILayout.EndHorizontal();
+			}
+		}
+
 	}
 }

@@ -1,20 +1,20 @@
 using UnityEditor;
 
-namespace N3twork.Editor
+namespace PersonalEditorTools.Editor
 {
 	public class PrefabEnvironment
 	{
 		[MenuItem("Assets/Set Prefab Environment")]
 		private static void ChangeEnvironment()
 		{
-			SceneAsset temp = (SceneAsset)Selection.activeObject;
+			var temp = (SceneAsset) Selection.activeObject;
 			EditorSettings.prefabRegularEnvironment = temp;
 		}
 
 		[MenuItem("Assets/Set Prefab Environment", true)]
 		private static bool ChangeEnvironmentCheck()
 		{
-			return Selection.activeObject.GetType() == typeof(SceneAsset);
+			return Selection.activeObject is SceneAsset;
 		}
 
 		[MenuItem("Assets/Reset Prefab Environment")]
