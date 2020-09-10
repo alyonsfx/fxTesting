@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a6ac274c-c978-42c6-8e32-519eeea7faba" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.QuickTest/.idea/contentModel.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.QuickTest/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.QuickTest/.idea/indexLayout.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.QuickTest/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.QuickTest/.idea/projectSettingsUpdater.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.QuickTest/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.idea.QuickTest/riderModule.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Cyborg Ninja.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Cyborg Ninja/Animations.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Cyborg Ninja/Cyborg Ninja.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Cyborg Ninja/Cyborg Ninja.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Cyborg Ninja/Materials.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Cyborg Ninja/Models.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Cyborg Ninja/Prefabs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Cyborg Ninja/Textures.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Liquid Snake.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Liquid Snake/Animations.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Liquid Snake/Liquid Snake.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Liquid Snake/Liquid Snake.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Liquid Snake/Materials.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Liquid Snake/Models.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Liquid Snake/Prefabs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Liquid Snake/Textures.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Psycho Mantis.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Psycho Mantis/Animations.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Psycho Mantis/Materials.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Psycho Mantis/Models.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Psycho Mantis/Prefabs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Psycho Mantis/Psycho Mantis.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Psycho Mantis/Psycho Mantis.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Psycho Mantis/Textures.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Revolver Ocelot.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Revolver Ocelot/Animations.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Revolver Ocelot/Materials.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Revolver Ocelot/Models.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Revolver Ocelot/Prefabs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Revolver Ocelot/Revolver Ocelot.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Revolver Ocelot/Revolver Ocelot.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Revolver Ocelot/Textures.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Sniper Wolf.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Sniper Wolf/Animations.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Sniper Wolf/Materials.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Sniper Wolf/Models.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Sniper Wolf/Prefabs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Sniper Wolf/Sniper Wolf.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Sniper Wolf/Sniper Wolf.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Sniper Wolf/Textures.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Vulcan Raven.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Vulcan Raven/Animations.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Vulcan Raven/Materials.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Vulcan Raven/Models.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Vulcan Raven/Prefabs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Vulcan Raven/Textures.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Vulcan Raven/Vulcan Raven.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Bosses/Vulcan Raven/Vulcan Raven.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Shaders/FireScroll.shader" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/Shaders/FireScroll.shader.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/Fire.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/Fire.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/FireCutout.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/FireCutout.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/VFX_Fire.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/VFX_Fire.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/VFX_FireCutout.mat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/VFX_FireCutout.mat.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/VFX_FireMain.tif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/VFX_FireMain.tif.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/VFX_LUT_Fire.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/VFX_LUT_Fire.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/VFX_LUT_FireCutout.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Art/VFX/VFX_LUT_FireCutout.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Editor.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/Editor/JetBrains.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/FireShader_Test.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/FireShader_Test.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BossSpawner.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/BossSpawner.cs.meta" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/Scripts/Editor/CreateBoss.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Editor/FindReferencesWindow.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/BossData.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Editor/BossToolset.cs" />
+        <option value="$PROJECT_DIR$/Assets/Art/Shaders/FireScroll.shader" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1hA9sCE2lg2MXLTyzk9tvUVxGqO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="selectedOptions">
+        <set />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a6ac274c-c978-42c6-8e32-519eeea7faba" name="Default Changelist" comment="" />
+      <created>1599443235590</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1599443235590</updated>
+      <workItem from="1599443241215" duration="5769000" />
+      <workItem from="1599616807850" duration="8668000" />
+      <workItem from="1599658126554" duration="3482000" />
+      <workItem from="1599704783303" duration="463000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>
