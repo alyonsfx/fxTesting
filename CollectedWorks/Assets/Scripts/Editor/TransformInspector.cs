@@ -1,3 +1,4 @@
+/*
 using UnityEditor;
 using UnityEngine;
 
@@ -123,4 +124,4 @@ public class TransformInspector : Editor
 		EditorGUIUtility.labelWidth = w;
 		return v;
 	}
-}
+} */

@@ -1,4 +1,3 @@
-using N3twork.Mino;
 using UnityEngine;
 using UnityEditor;
 
@@ -57,22 +56,21 @@ namespace PersonalEditorTools.Editor
 			textureFolder = themePath + "/Textures/Minos/";
 			prefabsFolder = themePath + "/Prefabs/";
 			CreateMainMino();
-
 		}
 
 		private void CreateMainMino()
 		{
 			var initialName = createFullSet ? letters[0] : "";
 			var baseObject = new GameObject {name = themeName + "_Mino" + initialName};
-			var mObject = baseObject.AddComponent<ResettableMonominoObject>();
+			// var mObject = baseObject.AddComponent<ResettableMonominoObject>();
 
 			var mino = new GameObject {name = "Mino"};
 			var renderer = mino.AddComponent<SpriteRenderer>();
-			mObject.NewThemeSetup(renderer);
+			// mObject.NewThemeSetup(renderer);
 			renderer.transform.parent = baseObject.transform;
 			renderer.sprite = (Sprite)AssetDatabase.LoadAssetAtPath(textureFolder + themeName + "_Mino" + initialName + ".png", typeof(Sprite));
-			var order = mino.AddComponent<SpriteOrder>();
-			order.NewThemeSetup(0);
+			// var order = mino.AddComponent<SpriteOrder>();
+			// order.NewThemeSetup(0);
 
 			var localPath = prefabsFolder + baseObject.name + ".prefab";
 			var main = PrefabUtility.SaveAsPrefabAssetAndConnect(baseObject,localPath,InteractionMode.AutomatedAction);
@@ -121,14 +119,14 @@ namespace PersonalEditorTools.Editor
 		private void CreateGhostMino()
 		{
 			var baseObject = new GameObject {name = themeName + "_MinoGhost"};
-			baseObject.AddComponent<MonominoObject>();
+			// baseObject.AddComponent<MonominoObject>();
 
 			var mino = new GameObject {name = "Mino"};
 			var renderer = mino.AddComponent<SpriteRenderer>();
 			renderer.transform.parent = baseObject.transform;
 			renderer.sprite = (Sprite) AssetDatabase.LoadAssetAtPath(textureFolder + themeName + "_MinoGhost.png", typeof(Sprite));
-			var order = mino.AddComponent<SpriteOrder>();
-			order.NewThemeSetup(-1);
+			// var order = mino.AddComponent<SpriteOrder>();
+			// order.NewThemeSetup(-1);
 
 			var localPath = prefabsFolder + baseObject.name + ".prefab";
 			var main = PrefabUtility.SaveAsPrefabAssetAndConnect(baseObject, localPath, InteractionMode.AutomatedAction);

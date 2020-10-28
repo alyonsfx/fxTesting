@@ -1,6 +1,4 @@
-﻿using N3twork.Mino.Engine;
-using N3twork.Mino.Theme;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using UnityEngine.U2D;
 
