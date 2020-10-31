@@ -21,6 +21,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AltTex:
+        m_Texture: {fileID: 2800000, guid: 43ab0e79364746643a9ea30a4d68f9f7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: dafdba76d5948cc47879998a3d0fb57a, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -77,6 +81,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 0}
 --- !u!114 &114850656681343069
 MonoBehaviour:
   m_ObjectHideFlags: 11

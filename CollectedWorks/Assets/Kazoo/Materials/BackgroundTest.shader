@@ -7,6 +7,7 @@
         _MaskColor1 ("Mask Color 1", Color) = (0, 0, 0, 0)
         _MaskColor2 ("Mask Color 2", Color) = (0, 0, 0, 0)
         _Speed ("Speed", Float) = 0.1
+        _VinColor ("Edge Color", Color) = (0, 0, 0, 0)
         _Radius ("Radius", Float) = 0.1
         _Roundness ("Roundness",  Range (0.00, 1.00)) = 0.1
         _Falloff ("Falloff", Float) = 0.1
@@ -40,7 +41,7 @@
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            half4 _BaseColor, _MaskColor1, _MaskColor2;
+            half4 _BaseColor, _MaskColor1, _MaskColor2, _VinColor;
             half _Speed, _Radius,_Intensity, _Falloff, _Roundness;
 
             v2f vert (appdata v)
@@ -73,7 +74,7 @@
                 mask += col.a;
                 half4 temp = lerp(_MaskColor1, _MaskColor2, mask);
                 col.rgb = lerp(col.rgb, temp, saturate(tex.x * temp.a));
-                col.rgb*= lerp(1, 0, dist * _Intensity);
+                col.rgb= lerp(col.rgb, _VinColor.rgb, dist * _Intensity);
                 return col;
             }
             ENDCG
