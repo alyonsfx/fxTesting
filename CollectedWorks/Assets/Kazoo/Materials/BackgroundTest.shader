@@ -1,4 +1,4 @@
-﻿Shader "Unlit/Background Test"
+﻿Shader "Unlit/Kazoo/Background"
 {
     Properties
     {

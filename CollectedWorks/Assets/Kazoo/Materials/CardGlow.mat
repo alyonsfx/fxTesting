@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Custom_Glow Test
+  m_Name: CardGlow
   m_Shader: {fileID: 4800000, guid: fdfd6518b4c8ec24d80899c00d9b4f94, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4

@@ -1,4 +1,4 @@
-﻿Shader "Custom/Glow Test"
+﻿Shader "Custom/Kazoo/Glow"
 {
     Properties
     {
