@@ -27,6 +27,8 @@ public class LootBoxManager : MonoBehaviour
         _ui.gameObject.SetActive(false);
         _glow.gameObject.SetActive(false);
         _box.SetActive(false);
+        _openButton.interactable = false;
+        _text.enabled = false;
     }
 
     private void Update()
@@ -35,6 +37,8 @@ public class LootBoxManager : MonoBehaviour
         {
             _box.SetActive(true);
             controller.enabled = true;
+            _openButton.interactable = true;
+            _text.enabled = true;
         }
     }
 
