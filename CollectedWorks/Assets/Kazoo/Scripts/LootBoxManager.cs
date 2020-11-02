@@ -9,6 +9,7 @@ public class LootBoxManager : MonoBehaviour
     [SerializeField] private List<Animator> _cards = new List<Animator>();
     [SerializeField] private MeshRenderer _background;
     [SerializeField] private ParticleSystem _glow;
+    [SerializeField] private ParticleSystem _rareSparks;
     [SerializeField] private GameObject _box;
     [SerializeField] private Button _openButton;
     [SerializeField] private Animation _ui;
@@ -52,6 +53,7 @@ public class LootBoxManager : MonoBehaviour
         if(_cardIndex >= _cards.Count)
         {
             _glow.Stop();
+            _rareSparks.Stop();
             StartCoroutine(SpecialGlow(0f));
             _ui.gameObject.SetActive(true);
             _openButton.gameObject.SetActive(false);
@@ -75,9 +77,11 @@ public class LootBoxManager : MonoBehaviour
         else if(_cardIndex < _cards.Count)
         {
             var card = Instantiate(_cards[_cardIndex]);
+            card.transform.localPosition = Vector2.up * 0.05f;
             StartCoroutine(ButtonDelay(card, _cardIndex != _cards.Count));
             if(_cardIndex == _cards.Count-1)
             {
+                _rareSparks.Play();
                 StartCoroutine(SpecialGlow(1f));
                 controller.SetBool("More", false);
             }
