@@ -1,20 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(ParticleSystem))]
 public class EmitNow : MonoBehaviour {
-    private ParticleSystem ps = null;
+    [SerializeField] private ParticleSystem _targetSystem = null;
 
     void Start()
     {
-        ps = GetComponent<ParticleSystem>();
+		if (_targetSystem == null)
+		{
+            _targetSystem = GetComponent<ParticleSystem>();
+		}
     }
 
     void Update()
     {
         if (Input.GetMouseButton(0))
         {
-            ps.Play();
+            _targetSystem.Play();
         }
     }
 }
